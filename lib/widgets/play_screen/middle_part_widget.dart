@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tcard/tcard.dart';
+import 'package:your_choice_card_game/models/card_model.dart';
 import 'package:your_choice_card_game/widgets/play_screen/stack_widget.dart';
 
 class MiddlePartWidget extends StatefulWidget {
@@ -11,12 +13,27 @@ class MiddlePartWidget extends StatefulWidget {
 class _MiddlePartWidgetState extends State<MiddlePartWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(flex: 3, child: buildText()),
-        Expanded(flex: 10, child: StackWidget()),
-        Expanded(flex: 1, child: buildName()),
-      ],
+    return ValueListenableBuilder(
+      valueListenable: cardNotify,
+      builder: (context, CardModel cardModel, child) {
+        return Column(
+          children: [
+            Expanded(flex: 3, child: buildText()),
+            Expanded(flex: 10, child: StackWidget()),
+            Expanded(flex: 1, child: buildName()),
+            // Expanded(
+            //   flex: 1,
+            //   child: IconButton(
+            //     icon: Icon(Icons.ac_unit),
+            //     onPressed: () {
+            //       print(cardModel.controller.index);
+            //       cardModel.controller.back();
+            //     },
+            //   ),
+            // )
+          ],
+        );
+      },
     );
   }
 
@@ -26,7 +43,7 @@ class _MiddlePartWidgetState extends State<MiddlePartWidget> {
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Text(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed lectus ullamcorper.",
+        cardNotify.getText,
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 22),
       ),
@@ -38,7 +55,7 @@ class _MiddlePartWidgetState extends State<MiddlePartWidget> {
       color: Colors.purple,
       alignment: Alignment.center,
       child: Text(
-        "Pippin",
+        cardNotify.getName,
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 22),
       ),

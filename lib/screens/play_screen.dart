@@ -19,7 +19,7 @@ class _PlayScreenState extends State<PlayScreen> {
       scale: 2.05,
       initBottom: 20,
       offset: Offset.zero,
-      initOpacity: 0.4,
+      initOpacity: 0,
       child: SafeArea(
         child: Scaffold(
           body: Column(

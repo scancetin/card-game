@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tcard/tcard.dart';
+import 'package:your_choice_card_game/models/card_model.dart';
+import 'package:your_choice_card_game/widgets/play_screen/card_widget.dart';
 
 class StackWidget extends StatefulWidget {
   const StackWidget({Key? key}) : super(key: key);
@@ -9,19 +11,31 @@ class StackWidget extends StatefulWidget {
 }
 
 class _StackWidgetState extends State<StackWidget> {
-  TCardController _controller = TCardController();
-
   Stack getStack = Stack(
-    children: [],
+    children: List.generate(
+      cardNotify.getAllImages.length,
+      (int index) {
+        return CardWidget(image: cardNotify.getAllImages[index]);
+      },
+    ),
   );
 
   @override
   Widget build(BuildContext context) {
     return TCard(
-      controller: _controller,
+      controller: cardNotify.getController,
       cards: getStack.children,
       onForward: (index, info) {
-        print("$index     $info");
+        cardNotify.indexIncrement();
+
+        if (info.direction == SwipDirection.Right) {
+          print("RIGTH");
+        } else if (info.direction == SwipDirection.Left) {
+          print("LEFT");
+        }
+      },
+      onBack: (index, info) {
+        cardNotify.indexDecrement();
       },
     );
   }
