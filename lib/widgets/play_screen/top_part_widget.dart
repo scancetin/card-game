@@ -22,14 +22,53 @@ class _TopPartWidgetState extends State<TopPartWidget> {
   }
 
   buildGameElements(IconData icon) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          size: 60,
+    // return Column(
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   children: [
+    //     ShaderMask(
+    //       shaderCallback: (bounds) => LinearGradient(
+    //         begin: Alignment.topCenter,
+    //         end: Alignment.bottomCenter,
+    //         colors: [Colors.blue, Colors.red],
+    //         tileMode: TileMode.mirror,
+    //       ).createShader(bounds),
+    //       child: Icon(
+    //         Icons.book,
+    //         size: 50,
+    //         color: Colors.white,
+    //       ),
+    //     )
+    //   ],
+    // );
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(60),
+        child: SizedBox(
+          height: 80,
+          width: 80,
+          child: Stack(
+            children: [
+              Container(
+                color: Colors.grey,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 60,
+                  color: Colors.red,
+                ),
+              ),
+              Center(
+                child: Icon(
+                  icon,
+                  size: 60,
+                  // color: Colors.transparent,
+                ),
+              ),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }

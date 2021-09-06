@@ -21,16 +21,6 @@ class _MiddlePartWidgetState extends State<MiddlePartWidget> {
             Expanded(flex: 3, child: buildText()),
             Expanded(flex: 10, child: StackWidget()),
             Expanded(flex: 1, child: buildName()),
-            // Expanded(
-            //   flex: 1,
-            //   child: IconButton(
-            //     icon: Icon(Icons.ac_unit),
-            //     onPressed: () {
-            //       print(cardModel.controller.index);
-            //       cardModel.controller.back();
-            //     },
-            //   ),
-            // )
           ],
         );
       },

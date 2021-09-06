@@ -20,23 +20,40 @@ class _StackWidgetState extends State<StackWidget> {
     ),
   );
 
+  // TODO: when controller.back called, touching in animation state creates bug
+  // TODO: wait for animation finish, or make screen untouchable for ms
+
   @override
   Widget build(BuildContext context) {
     return TCard(
+      slideSpeed: 15,
+      // delaySlideFor: 100,
       controller: cardNotify.getController,
       cards: getStack.children,
       onForward: (index, info) {
-        cardNotify.indexIncrement();
+        if (index < cardNotify.getAllImages.length) {
+          cardNotify.indexIncrement(index);
 
-        if (info.direction == SwipDirection.Right) {
-          print("RIGTH");
-        } else if (info.direction == SwipDirection.Left) {
-          print("LEFT");
+          if (info.direction == SwipDirection.Right) {
+            cardNotify.rigthSwipe();
+            print("RIGTH");
+          } else if (info.direction == SwipDirection.Left) {
+            cardNotify.leftSwipe();
+            print("LEFT");
+          }
         }
+
+        print(cardNotify.currentIconStats);
       },
       onBack: (index, info) {
-        cardNotify.indexDecrement();
+        cardNotify.indexDecrement(index);
+        print(cardNotify.currentIconStats);
+      },
+      onEnd: () {
+        cardNotify.getController.back();
       },
     );
   }
+
+  void getStatus() {}
 }
