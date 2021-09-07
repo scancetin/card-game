@@ -13,17 +13,12 @@ class MiddlePartWidget extends StatefulWidget {
 class _MiddlePartWidgetState extends State<MiddlePartWidget> {
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: cardNotify,
-      builder: (context, CardModel cardModel, child) {
-        return Column(
-          children: [
-            Expanded(flex: 3, child: buildText()),
-            Expanded(flex: 10, child: StackWidget()),
-            Expanded(flex: 1, child: buildName()),
-          ],
-        );
-      },
+    return Column(
+      children: [
+        Expanded(flex: 3, child: buildText()),
+        Expanded(flex: 10, child: StackWidget()),
+        Expanded(flex: 1, child: buildName()),
+      ],
     );
   }
 

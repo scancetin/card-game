@@ -20,40 +20,35 @@ class _StackWidgetState extends State<StackWidget> {
     ),
   );
 
-  // TODO: when controller.back called, touching in animation state creates bug
-  // TODO: wait for animation finish, or make screen untouchable for ms
-
   @override
   Widget build(BuildContext context) {
-    return TCard(
-      slideSpeed: 15,
-      // delaySlideFor: 100,
-      controller: cardNotify.getController,
-      cards: getStack.children,
-      onForward: (index, info) {
-        if (index < cardNotify.getAllImages.length) {
-          cardNotify.indexIncrement(index);
+    return Center(
+      child: TCard(
+        slideSpeed: 15,
+        controller: cardNotify.getController,
+        cards: getStack.children,
+        onForward: (index, info) {
+          if (index < cardNotify.getAllImages.length) {
+            cardNotify.indexIncrement(index);
 
-          if (info.direction == SwipDirection.Right) {
-            cardNotify.rigthSwipe();
-            print("RIGTH");
-          } else if (info.direction == SwipDirection.Left) {
-            cardNotify.leftSwipe();
-            print("LEFT");
+            if (info.direction == SwipDirection.Right) {
+              cardNotify.rigthSwipe();
+              print("RIGTH");
+            } else if (info.direction == SwipDirection.Left) {
+              cardNotify.leftSwipe();
+              print("LEFT");
+            }
           }
-        }
-
-        print(cardNotify.currentIconStats);
-      },
-      onBack: (index, info) {
-        cardNotify.indexDecrement(index);
-        print(cardNotify.currentIconStats);
-      },
-      onEnd: () {
-        cardNotify.getController.back();
-      },
+        },
+        //! back button have issues => animation problems, cant turn stats back
+        //! back buttun only working for last card
+        onBack: (index, info) {
+          cardNotify.indexDecrement(index, info);
+        },
+        onEnd: () {
+          cardNotify.getController.back();
+        },
+      ),
     );
   }
-
-  void getStatus() {}
 }

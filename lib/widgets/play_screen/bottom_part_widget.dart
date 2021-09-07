@@ -13,14 +13,6 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.yellow,
-      child: Center(
-        child: IconButton(
-          icon: Icon(Icons.ac_unit),
-          onPressed: () {
-            cardNotify.getController.back();
-          },
-        ),
-      ),
     );
   }
 }

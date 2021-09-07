@@ -11,7 +11,7 @@ class CardNotify extends ValueNotifier<CardModel> {
     notifyListeners();
   }
 
-  void indexDecrement(int index) {
+  void indexDecrement(int index, SwipInfo info) {
     value.index = index;
     notifyListeners();
   }
@@ -32,29 +32,57 @@ class CardNotify extends ValueNotifier<CardModel> {
     notifyListeners();
   }
 
+  // TODO: back button doesnt working good
+  // void backButtonValues(SwipInfo info) {
+  //   print("back");
+  //   print(value.index);
+  //   print(getIndex);
+
+  //   if (info.direction == SwipDirection.Right) {
+  //     value.firstIconValue -= value.rigthSwipes[getIndex][0];
+  //     value.secondIconValue -= value.rigthSwipes[getIndex][1];
+  //     value.thirdIconValue -= value.rigthSwipes[getIndex][2];
+  //     value.fourthIconValue -= value.rigthSwipes[getIndex][3];
+  //     print("RIGTH");
+  //   } else if (info.direction == SwipDirection.Left) {
+  //     value.firstIconValue -= value.leftSwipes[getIndex][0];
+  //     value.secondIconValue -= value.leftSwipes[getIndex][1];
+  //     value.thirdIconValue -= value.leftSwipes[getIndex][2];
+  //     value.fourthIconValue -= value.leftSwipes[getIndex][3];
+  //     print("LEFT");
+  //   }
+  //   notifyListeners();
+  // }
+
   // TODO: find better place for these funcs
 
   int get getIndex => value.index;
 
-  String get getText => value.texts[value.index];
+  String get getText => value.texts[getIndex];
 
-  String get getName => value.names[value.index];
+  String get getName => value.names[getIndex];
 
-  String get getImage => value.images[value.index];
+  String get getImage => value.images[getIndex];
 
   List<String> get getAllImages => value.images;
 
   TCardController get getController => value.controller;
 
-  String get currentIconStats => "${value.firstIconValue}   ${value.secondIconValue}   ${value.thirdIconValue}   ${value.fourthIconValue}";
+  List<int> get currentStats => [value.firstIconValue, value.secondIconValue, value.thirdIconValue, value.fourthIconValue];
+
+  String get getRightText => value.rigthTexts[getIndex];
+
+  String get getLeftText => value.leftTexts[getIndex];
+
+  List<int> getCardStatsRL(index) => [value.rigthSwipes[getIndex][index], value.leftSwipes[getIndex][index]];
 }
 
 // TODO: turn "texts, images, names" to json
 class CardModel {
-  int firstIconValue = 0;
-  int secondIconValue = 0;
-  int thirdIconValue = 0;
-  int fourthIconValue = 0;
+  int firstIconValue = 50;
+  int secondIconValue = 50;
+  int thirdIconValue = 50;
+  int fourthIconValue = 50;
 
   int index = 0;
 
@@ -100,28 +128,54 @@ class CardModel {
   ];
 
   List<List<int>> rigthSwipes = [
-    [0, 0, 2, 0],
+    [0, 0, -2, 0],
     [0, 0, 0, 5],
     [3, 0, 7, 5],
-    [0, 20, 7, 5],
+    [0, -20, 7, 5],
     [3, 8, 0, 5],
     [3, 0, 0, 0],
+    [0, 10, 7, -5],
+    [3, 0, -7, 15],
     [0, 10, 7, 5],
-    [3, 0, 7, 15],
-    [0, 10, 7, 5],
-    [0, 12, 0, 0],
+    [0, -12, 0, 0],
   ];
 
   List<List<int>> leftSwipes = [
     [1, 0, 0, 0],
-    [0, 10, 7, 5],
+    [0, 10, -7, 5],
     [3, 0, 7, 15],
-    [0, 10, 7, 5],
+    [0, 10, -7, 5],
     [0, 12, 0, 0],
     [3, 0, 7, 5],
     [0, 0, 0, 5],
-    [3, 0, 7, 5],
+    [-3, 0, 7, 5],
     [0, 20, 7, 5],
-    [3, 8, 0, 5],
+    [3, -8, 0, 5],
+  ];
+
+  List<String> rigthTexts = [
+    "0 Pippin",
+    "1 Pippins",
+    "2 Pippina",
+    "3 Pippinw",
+    "4 Pippind",
+    "5 Pippinq",
+    "6 Pippine",
+    "7 Pippinr",
+    "8 Paippin",
+    "9 Paswippin",
+  ];
+
+  List<String> leftTexts = [
+    "0 Pippin",
+    "1 Pippins",
+    "2 Pippina",
+    "3 Pippinw",
+    "4 Pippind",
+    "5 Pippinq",
+    "6 Pippine",
+    "7 Pippinr",
+    "8 Paippin",
+    "9 Paswippin",
   ];
 }
